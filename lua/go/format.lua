@@ -78,7 +78,9 @@ end
 
 function M.lsp()
     if vim.fn.has('nvim-0.8') then
-        require('vim.lsp.buf').format()
+        vim.lsp.buf.format()
+        vim.lsp.buf.code_action { context = { only = { 'source.organizeImports' } }, apply = true }
+        vim.lsp.buf.code_action { context = { only = { 'source.fixAll' } }, apply = true }
     else
         output.show_error(
             'GoFormat',
