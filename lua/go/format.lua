@@ -78,10 +78,11 @@ end
 
 function M.lsp()
     if vim.fn.has('nvim-0.8') then
+        local buf_nr = vim.api.nvim_get_current_buf()
         vim.lsp.buf.format()
         vim.lsp.buf.code_action { context = { only = { 'source.organizeImports' } }, apply = true }
         vim.lsp.buf.code_action { context = { only = { 'source.fixAll' } }, apply = true }
-        vim.lsp.buf_request_sync(0, "codeAction/resolve")
+        vim.lsp.buf_request_sync(buf_nr, "codeAction/resolve")
     else
         output.show_error(
             'GoFormat',
